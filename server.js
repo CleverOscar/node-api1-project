@@ -1,44 +1,36 @@
-/* simple server function */
-//const http = require('http');
-
 const express = require('express')
 
 const port = 5000;
+const server = express();
 
-const server = express()
+server.use(express.json());
 
-// const server = http.createServer((req,res) => {
-//     //callback information
-//     res.statusCode = 200;
-//     res.setHeader("Content-Type", 'text/plain');
-//     res.end('Hello World, from NodeJs')
-// });
-
-// request handler with middleware
-server.get('/', (req, res) => {
-  res.send('Hello World, from express!')
+server.get('/', (req, res)=>{
+  res.send('ROOT FILE')
 })
 
-
-//request hobbits page
-
-server.get('/hobbit', (req, res)=>{
-  const hobbits = [
-    {
-      id: 1,
-      name: 'Oscar Ortiz'
-    },
-    {
-      id: 2,
-      name: 'Andrew Heredia'
-    }
-  ];
-
-  res.status(200).json(hobbits)
+server.get('/hobbits', (req, res) => {
+  res.send('Welcome to Hobbiton');
 })
 
-server.listen(port, () => {
-    console.log(`server listening on ${port}`)
+server.post('/hobbits', (req, res) => {
+  res.status(201).json({
+    url: '/hobbits',
+    operation: 'POST'
+  })
 })
 
-//node index.js to execute
+server.put('/hobbits', (req, res) => {
+  res.status(200).json({
+    url: '/hobbits',
+    operation: 'PUT'
+  })
+})
+
+server.delete('hobbits', (req, res) => {
+  res.status(204);
+})
+
+server.listen(port, ()=> {
+  console.log(`Server listening on port ${port}`)
+})
