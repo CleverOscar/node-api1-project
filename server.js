@@ -19,6 +19,24 @@ server.get('/', (req, res) => {
   res.send('Hello World, from express!')
 })
 
+
+//request hobbits page
+
+server.get('/hobbit', (req, res)=>{
+  const hobbits = [
+    {
+      id: 1,
+      name: 'Oscar Ortiz'
+    },
+    {
+      id: 2,
+      name: 'Andrew Heredia'
+    }
+  ];
+
+  res.status(200).json(hobbits)
+})
+
 server.listen(port, () => {
     console.log(`server listening on ${port}`)
 })
